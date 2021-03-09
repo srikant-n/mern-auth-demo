@@ -1,0 +1,47 @@
+{
+  "name": "mern-auth-demo",
+  "version": "1.0.0",
+  "description": "Authentican demo app using MERN stack with TypeScript and Material UI",
+  "main": "app.js",
+  "scripts": {
+    "test": "set NODE_ENV=test && --exec mocha */**.test.js",
+    "server": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srikant-n/mern-auth-demo.git"
+  },
+  "keywords": [
+    "Node",
+    "React",
+    "Express",
+    "MongoDB",
+    "MERN",
+    "Mongoose",
+    "Auth",
+    "TypeScript"
+  ],
+  "author": "Srikant Nimmagadda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/srikant-n/mern-auth-demo/issues"
+  },
+  "homepage": "https://github.com/srikant-n/mern-auth-demo#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.4",
+    "mongoose": "^5.11.19",
+    "multer": "^1.4.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.3",
+    "mocha": "^8.3.1",
+    "supertest": "^6.1.3"
+  },
+  "engines": {
+    "node": "14.x"
+  }
+}
