@@ -4,7 +4,7 @@
   "description": "Authentican demo app using MERN stack with TypeScript and Material UI",
   "main": "app.js",
   "scripts": {
-    "test": "set NODE_ENV=test && --exec mocha */**.test.js",
+    "test": "set NODE_ENV=test && --exec mocha test/**.test.js",
     "server": "nodemon app.js",
     "start": "node app.js"
   },
