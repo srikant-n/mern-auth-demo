@@ -15,21 +15,21 @@ const userSchema = new mongoose.Schema({
   photo: String,
   bio: String,
   website: String,
-  email: { type:String, unique : true, required : true},
+  email: { type: String, unique: true, required: true },
   password: String,
   salt: String,
   iterations: Number,
-  socialMail: { type:String, unique : true, sparse:true },
-  googleId: { type:String, unique : true, sparse:true },
-  facebookId: { type:String, unique : true, sparse:true },
-  twitterId: { type:String, unique : true, sparse:true },
-  date: {type: Date, default: Date.now}
+  socialMail: { type: String, unique: true, sparse: true },
+  googleId: { type: String, unique: true, sparse: true },
+  facebookId: { type: String, unique: true, sparse: true },
+  twitterId: { type: String, unique: true, sparse: true },
+  date: { type: Date, default: Date.now },
 });
 
 /**
  * Model for users
  */
-const User = module.exports = mongoose.model('user', userSchema);
+const User = (module.exports = mongoose.model("user", userSchema));
 
 /**
  * Get user data if email and password match
@@ -37,8 +37,8 @@ const User = module.exports = mongoose.model('user', userSchema);
  * @param {requestCallback} callback Callback for the user find
  */
 module.exports.getUserByEmail = (email, callback) => {
-    User.findOne({ "email": email.toLowerCase() }, callback);
-}
+  User.findOne({ email: email.toLowerCase() }, callback);
+};
 
 /**
  * Add a new user to the database
@@ -47,15 +47,15 @@ module.exports.getUserByEmail = (email, callback) => {
  * @param {requestCallback} callback Callback for the user find
  */
 module.exports.addUserByEmailAndPassword = (email, hash, callback) => {
-    const user = new User({
-        "email": email.toLowerCase(),
-        password: hash.password,
-        salt: hash.salt,
-        iterations: hash.iterations
-    });
+  const user = new User({
+    email: email.toLowerCase(),
+    password: hash.password,
+    salt: hash.salt,
+    iterations: hash.iterations,
+  });
 
-    user.save(callback);
-}
+  user.save(callback);
+};
 
 /**
  * Update user data
@@ -64,5 +64,5 @@ module.exports.addUserByEmailAndPassword = (email, hash, callback) => {
  * @param {requestCallback} callback Callback with userdata after update
  */
 module.exports.updateUser = (id, userData, callback) => {
-    User.findByIdAndUpdate(id, userData,{new:true}, callback);
-}
+  User.findByIdAndUpdate(id, userData, { new: true, omitUndefined: true }, callback);
+};
