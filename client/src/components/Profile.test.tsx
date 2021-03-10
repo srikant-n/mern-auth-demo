@@ -28,7 +28,9 @@ describe("profile edit and save", () => {
   });
 
   test("fields are editable after clicking edit button", () => {
-    const { getByLabelText, getByText } = render(<Profile user={userData} onUpdateUser={jest.fn} />);
+    const { getByLabelText, getByText } = render(
+      <Profile user={userData} onUpdateUser={jest.fn} />
+    );
 
     // Click on edit
     fireEvent.click(getByText("Edit"));

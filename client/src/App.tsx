@@ -1,25 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import "./App.css";
+import LoginOrRegister from "./components/LoginOrRegister";
+import Profile from "./components/Profile";
+import UserData from "./UserData";
 
 function App() {
+  const [user, setUser] = useState<UserData | undefined>(undefined);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/login">
+            <LoginOrRegister isLogin={true} pathToToggleLogin="/register" onLogin={setUser} />
+          </Route>
+          <Route path="/register">
+            <LoginOrRegister isLogin={false} pathToToggleLogin="/login" onLogin={setUser} />
+          </Route>
+          <Route path="/profile">
+            {user ? <Profile user={user} onUpdateUser={setUser} /> : <Redirect to="/login" />}
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/login" />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
