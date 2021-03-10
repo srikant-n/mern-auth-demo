@@ -4,7 +4,7 @@
   "description": "Authentican demo app using MERN stack with TypeScript and Material UI",
   "main": "app.js",
   "scripts": {
-    "test": "set NODE_ENV=test && --exec mocha test/**.test.js",
+    "test": "set NODE_ENV=test && nodemon --exec mocha test/**.test.js",
     "server": "nodemon app.js",
     "start": "node app.js"
   },
@@ -29,8 +29,10 @@
   },
   "homepage": "https://github.com/srikant-n/mern-auth-demo#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongodb": "^3.6.4",
     "mongoose": "^5.11.19",
