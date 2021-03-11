@@ -25,6 +25,7 @@ function App() {
           </Route>
           <Route exact path="/">
             <Redirect to="/login" />
+            {/* <Profile user={user!} onUpdateUser={setUser} /> */}
           </Route>
         </Switch>
       </div>

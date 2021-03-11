@@ -1,6 +1,10 @@
 import UserData from "./UserData";
 
-function post(url: string, data: object, callback: callbackType): Promise<void> {
+function post(
+  url: string,
+  data: object,
+  callback: (error: any, user?: UserData) => void
+): Promise<void> {
   return fetch(url, {
     method: "POST",
     headers: {
@@ -18,17 +22,17 @@ function post(url: string, data: object, callback: callbackType): Promise<void> 
     .catch((error) => callback(error, undefined));
 }
 
-interface callbackType {
-  (error: any, data?: UserData): void;
-}
-
 /**
  * Login using email and password
  * @param email Entered email
  * @param password Entered password
  * @param callback Data from server
  */
-export function login(email: string, password: string, callback: callbackType): void {
+export function login(
+  email: string,
+  password: string,
+  callback: (error: any, user?: UserData) => void
+): void {
   post("/user/login", { email, password }, callback);
 }
 
@@ -38,7 +42,11 @@ export function login(email: string, password: string, callback: callbackType): 
  * @param password Entered password
  * @param callback Data from server
  */
-export function register(email: string, password: string, callback: callbackType): void {
+export function register(
+  email: string,
+  password: string,
+  callback: (error: any, user?: UserData) => void
+): void {
   post("/user/register", { email, password }, callback);
 }
 
@@ -47,6 +55,9 @@ export function register(email: string, password: string, callback: callbackType
  * @param userData Updated user data
  * @param callback Data from server
  */
-export function updateProfile(userData: UserData, callback: callbackType): void {
+export function updateProfile(
+  userData: UserData,
+  callback: (error: any, user?: UserData) => void
+): void {
   post("/user/update", userData, callback);
 }

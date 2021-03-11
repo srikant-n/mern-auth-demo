@@ -1,0 +1,133 @@
+* {
+  --submit-button: #2f80ed;
+  --submit-button-hover: #206bce;
+  --dull-text-color: #828282;
+}
+
+.container {
+  padding: 18px;
+}
+
+/* login form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 40px 0;
+  font-size: 16px;
+}
+
+.form-element {
+  position: relative;
+}
+
+input[type="email"],
+input[type="password"] {
+  padding-left: 40px;
+  width: 100%;
+  height: 48px;
+  border: 1px solid #bdbdbd;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border: 1px solid var(--submit-button);
+  outline: none;
+}
+
+form .icon {
+  position: absolute;
+  top: 12px;
+  left: 8px;
+  fill: var(--dull-text-color);
+}
+
+.error {
+  margin: -5px 0;
+}
+
+input[type="submit"] {
+  background-color: var(--submit-button);
+  color: white;
+  height: 38px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: var(--submit-button-hover);
+}
+
+/* End login form */
+
+/* social buttons */
+.social-group {
+  margin: 22.5px auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 200px;
+}
+
+.social-button {
+  width: 42px;
+  cursor: pointer;
+}
+
+.social-button:hover circle {
+  stroke: var(--submit-button);
+}
+
+.social-button:hover path {
+  fill: var(--submit-button);
+}
+/* End social buttons */
+
+/* misc text and page toggle button */
+.centered-small {
+  margin: auto;
+  font-size: 14px;
+  text-align: center;
+  color: var(--dull-text-color);
+}
+
+.page-toggle {
+    color: var(--submit-button);
+    font-weight: 600;
+}
+
+/* End misc text and page toggle button */
+
+/* footer */
+footer {
+  padding: 18px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+footer a {
+    text-decoration: none;
+    color: var(--dull-text-color);
+}
+
+footer a:hover {
+    color: var(--submit-button);
+}
+
+@media (min-height: 580px) {
+  /* Set footer to bottom of page */
+  footer {
+    position: fixed;
+    bottom: 0;
+  }
+}
+/* End footer */
