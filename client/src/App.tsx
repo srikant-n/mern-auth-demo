@@ -7,6 +7,12 @@ import UserData from "./UserData";
 
 function App() {
   const [user, setUser] = useState<UserData | undefined>(undefined);
+  const dummyUser = {
+    id: "0",
+    name: "Nameth",
+    photo: "https://avatars.githubusercontent.com/u/17551928?s=460&v=4",
+    email: "test@me.com"
+  };
 
   return (
     <Router>
@@ -24,8 +30,8 @@ function App() {
             {user ? <Profile user={user} onUpdateUser={setUser} /> : <Redirect to="/login" />}
           </Route>
           <Route exact path="/">
-            <Redirect to="/login" />
-            {/* <Profile user={user!} onUpdateUser={setUser} /> */}
+            {/* <Redirect to="/login" /> */}
+            <Profile user={dummyUser} onUpdateUser={setUser} />
           </Route>
         </Switch>
       </div>

@@ -61,3 +61,34 @@ export function updateProfile(
 ): void {
   post("/user/update", userData, callback);
 }
+
+/**
+ * Upload an image and get the url for it
+ * @param file File to upload
+ * @param callback Url from server
+ */
+export function uploadImage(file: any, callback: (error: any, url?: string) => void) {
+  const formData = new FormData();
+  formData.append("image", file);
+  // Upload selected file to server
+  fetch("/user/image", {
+    method: "POST",
+    body: formData,
+  })
+    .then((res) => {
+      // Check for error
+      if (!res.ok) {
+        throw Error(res.statusText);
+      }
+      // Get text from response
+      return res.text();
+    })
+    .then((url) => {
+      // URL obtained
+      callback(null, url);
+    })
+    .catch((error) => {
+      // Error uploading
+      callback(error, undefined);
+    });
+}
