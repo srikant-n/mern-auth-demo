@@ -73,7 +73,7 @@ function LoginOrRegister(props: {
           choose
         </p>
         <form onSubmit={submitLoginOrRegister}>
-          <div className="form-element">
+          <div className="login-form-element">
             <label htmlFor="email" aria-label="Email">
               <EmailIcon className="icon" />
             </label>
@@ -87,7 +87,7 @@ function LoginOrRegister(props: {
               onChange={(event) => setEmail(event.target.value)}
             />
           </div>
-          <div className="form-element">
+          <div className="login-form-element">
             <label htmlFor="password" aria-label="Email">
               <PasswordIcon className="icon" />
             </label>

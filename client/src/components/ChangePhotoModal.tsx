@@ -14,20 +14,20 @@ function ChangePhotoModal(props: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function onSubmitPhoto(event:any): void {
-      event.preventDefault();
-      props.onClose(photoUrl ? photoUrl : "");
+  function onSubmitPhoto(event: any): void {
+    event.preventDefault();
+    props.onClose(photoUrl ? photoUrl : "");
   }
 
   function onFileSelected(files: any): void {
     // Check if file is an image
     if (files[0] && files[0].type.match(/image.*/)) {
       uploadImage(files[0], (error, url) => {
-          if(error) {
-              // show error
-          } else {
-              setPhotoUrl(url);
-          }
+        if (error) {
+          // show error
+        } else {
+          setPhotoUrl(url);
+        }
       });
     }
   }
