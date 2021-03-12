@@ -111,12 +111,14 @@ input[type="submit"].profile-button:hover {
   width: 72px;
   height: 72px;
 }
+
 .photo-container .photo {
   width: 72px;
   height: 72px;
   border-radius: 8px;
   object-fit: cover;
 }
+
 .photo-container .photo-edit {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.2);
@@ -124,6 +126,7 @@ input[type="submit"].profile-button:hover {
   width: 24px;
   height: 24px;
   padding: 24px;
+  cursor: pointer;
 }
 
 .photo-edit circle {

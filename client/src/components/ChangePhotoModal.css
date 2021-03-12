@@ -1,0 +1,61 @@
+.modal {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-card {
+    margin: 20% auto;
+    padding: 15px;
+    background-color: white;
+    width: 400px;
+    max-width: 85%;
+    border-radius: 8px;
+    display:grid;
+    grid-template-areas: 
+    "title title"
+    "form img";
+}
+
+.modal h2 {
+    grid-area: title;
+}
+
+.modal img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    grid-area: img;
+    justify-self: flex-end;
+    border: 1px solid #bdbdbd;
+}
+
+.modal form {
+    grid-area: form;
+    margin: auto 0;
+    display:flex;
+    gap:20px;
+}
+
+form>p{
+    margin: -10px auto;
+}
+
+.modal .buttons {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.modal .cancel {
+    border-radius: 8px;
+    padding: 10px;
+    outline: none;
+    border: none;
+    background-color: #ec0c0c;
+    color: white;
+    font-weight: 500;
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { updateProfile } from "../api";
 import { Logo, CameraIcon } from "../icons";
 import UserData from "../UserData";
@@ -6,16 +6,11 @@ import ChangePhotoModal from "./ChangePhotoModal";
 import "./Profile.css";
 
 function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any }) {
-  const [userData, setUserData] = useState<UserData | undefined>(undefined);
+  const [userData, setUserData] = useState<UserData | undefined>(props.user);
   const [password, setPassword] = useState<string>("");
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [showPhotoModal, setShowPhotoModal] = useState<boolean>(false);
-
-  useEffect(() => {
-    setUserData(props.user);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   /**
    * Input value changed
@@ -38,7 +33,7 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
    *
    * @param url New photo url
    */
-  function onChangePhoto(url: string): void {
+  function onChangePhoto(url?: string): void {
     setShowPhotoModal(false);
     setUserData((state) => {
       return Object.assign({}, state, { photo: url });
