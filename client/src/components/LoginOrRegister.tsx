@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { login, register } from "../api";
-import { EmailIcon, Logo, PasswordIcon, GoogleIcon, FacebookIcon, GithubIcon } from "../images";
+import { EmailIcon, Logo, PasswordIcon, GoogleIcon, FacebookIcon, GithubIcon } from "../icons";
 import UserData from "../UserData";
 import "./LoginOrRegister.css";
 

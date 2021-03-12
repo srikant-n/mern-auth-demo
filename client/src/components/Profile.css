@@ -12,13 +12,6 @@
   display: none;
 }
 
-.photo {
-  width: 72px;
-  height: 72px;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
 /* header */
 header {
   display: flex;
@@ -31,6 +24,8 @@ header {
 header .photo {
   width: 32px;
   height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
 }
 /* end header */
 
@@ -110,6 +105,36 @@ input[type="submit"].profile-button:hover {
   color: red;
 }
 /* profile data */
+/* photo */
+.photo-container {
+  position: relative;
+  width: 72px;
+  height: 72px;
+}
+.photo-container .photo {
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.photo-container .photo-edit {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.2);
+  left: 0;
+  width: 24px;
+  height: 24px;
+  padding: 24px;
+}
+
+.photo-edit circle {
+  stroke: var(--dull-text-color);
+}
+
+.photo-edit path {
+  fill: var(--dull-text-color);
+}
+/* end photo */
+
 .profile-item {
   display: flex;
   flex-direction: row;

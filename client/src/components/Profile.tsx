@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { updateProfile } from "../api";
-import { Logo } from "../images";
+import { Logo, CameraIcon } from "../icons";
 import UserData from "../UserData";
 import ChangePhotoModal from "./ChangePhotoModal";
 import "./Profile.css";
@@ -106,13 +106,16 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
             <label className="profile-label" htmlFor="photo">
               Photo
             </label>
-            <img
-              id="photo"
-              className="photo"
-              src={props.user.photo}
-              alt="User"
-              onClick={openPhotoModal}
-            />
+            <div className="photo-container">
+              <img id="photo" className="photo" src={props.user.photo} alt="User" />
+              {isEditable && (
+                <CameraIcon
+                  className="photo-edit"
+                  aria-label="Change photo"
+                  onClick={openPhotoModal}
+                />
+              )}
+            </div>
           </div>
           <hr />
           <div className="profile-item">
