@@ -6,7 +6,8 @@ const userController = {
     // New user regitering by email/password
     // Check if email and password is sent
     if (!req.body.email || !req.body.password) {
-      res.status(400).send("Data missing");
+      res.statusMessage = "Data missing";
+      res.status(400).end();
       return;
     }
 
@@ -14,13 +15,16 @@ const userController = {
 
     // Something went wrong with password
     if (!password) {
-      res.status(500).send("Failed to register");
+      res.statusMessage = "Failed to register";
+      res.status(500).end();
       return;
     }
 
     model.addUserByEmailAndPassword(req.body.email, password, (err, user) => {
       if (err) {
-        res.status(401).send("Email already in use");
+        res.statusMessage = "Email already in use";
+        res.status(401).end();
+        // res.status(401).send("Email already in use");
       } else {
         res.send(getSendableUserData(user));
       }
@@ -29,13 +33,15 @@ const userController = {
   loginByEmail(req, res) {
     // Check if email and password is sent
     if (!req.body.email || !req.body.password) {
-      res.status(400).send("Data missing");
+      res.statusMessage = "Data missing";
+      res.status(400).end();
       return;
     }
 
     model.getUserByEmail(req.body.email, async (err, user) => {
       if (err) {
-        res.status(401).send("Email is not registered");
+        res.statusMessage = "Email is not registered";
+        res.status(401).end();
       } else {
         const password = await isPasswordCorrect(
           req.body.password,
@@ -43,37 +49,63 @@ const userController = {
           user.iterations,
           user.password
         );
-        
+
         // Something went wrong with password
         if (password == null) {
-          res.status(500).send("Failed to register");
+          res.statusMessage = "Failed to register";
+          res.status(500).end();
           return;
         }
         // User exists, check if passwords match
         if (password === true) {
           res.send(getSendableUserData(user));
         } else {
-          res.status(401).send("Incorrect password");
+          res.statusMessage = "Incorrect password";
+          res.status(401).end();
         }
       }
     });
   },
-  updateUserData(req, res) {
+  async updateUserData(req, res) {
     // Update user's data in db
     // Check if id is sent
     if (!req.body.id) {
-      res.status(400).send("Data missing");
+      res.statusMessage = "Data missing";
+      res.status(400).end();
       return;
     }
     const id = req.body.id;
     delete req.body.id;
+    if (req.body.password) {
+      const hash = await saltPassword(req.body.password);
+      // Something went wrong with password
+      if (!hash) {
+        res.statusMessage = "Failed to update";
+        res.status(500).end();
+        return;
+      }
+
+      req.body.password = hash.password;
+      req.body.salt = hash.salt;
+      req.body.iterations = hash.iterations;
+    }
+    
     model.updateUser(id, req.body, (err, user) => {
       if (err) {
-        res.status(401).send("Email already in use");
+        res.statusMessage = "Email already in use";
+        res.status(401).end();
       } else {
         res.send(getSendableUserData(user));
       }
     });
+  },
+  uploadImage(req, res) {
+    if (!req.file) {
+      res.statusMessage = "Please select an image";
+      res.status(400).end();
+    }
+    // Send image url
+    res.send(req.protocol + "://" + req.get("host") + "/image/" + req.file.filename);
   },
 };
 

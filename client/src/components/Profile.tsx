@@ -7,7 +7,6 @@ import "./Profile.css";
 
 function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any }) {
   const [userData, setUserData] = useState<UserData | undefined>(props.user);
-  const [password, setPassword] = useState<string>("");
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [showPhotoModal, setShowPhotoModal] = useState<boolean>(false);
@@ -56,6 +55,7 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
     event.preventDefault();
     updateProfile(userData!, (error, user?) => {
       if (error) {
+        console.log("/update error: " + error);
         setErrorMessage("Failed to update. Please try again.");
       } else {
         setUserData(user!);
@@ -64,11 +64,30 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
     });
   }
 
+  function textInput(name:string, value?:string) {
+    return (
+      <div className="profile-item">
+        <label className="profile-label" htmlFor={name}>
+          {name}
+        </label>
+        <input
+          type="text"
+          className="input"
+          id={name}
+          name={name}
+          value={value || ""}
+          onChange={onChangeValue}
+          readOnly={!isEditable}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="profile-container">
       <header>
         <Logo />
-        <img className="photo" src={props.user.photo} alt="User" />
+        <img className="photo" src={userData!.photo} alt="User" />
       </header>
       <div className="page-info">
         <h2>Personal info</h2>
@@ -102,7 +121,7 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
               Photo
             </label>
             <div className="photo-container">
-              <img id="photo" className="photo" src={props.user.photo} alt="User" />
+              <img id="photo" className="photo" src={userData!.photo} alt="User" />
               {isEditable && (
                 <CameraIcon
                   className="photo-edit"
@@ -113,20 +132,7 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
             </div>
           </div>
           <hr />
-          <div className="profile-item">
-            <label className="profile-label" htmlFor="name">
-              Name
-            </label>
-            <input
-              type="text"
-              className="input"
-              id="name"
-              name="name"
-              value={userData?.name}
-              onChange={onChangeValue}
-              readOnly={!isEditable}
-            />
-          </div>
+          {textInput("name", userData?.name)}
           <hr />
           <div className="profile-item">
             <label className="profile-label" htmlFor="bio">
@@ -134,43 +140,22 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
             </label>
             {/* Show textarea only while editable */}
             {isEditable ? (
-              <textarea className="input" id="bio" name="bio" rows={4} onChange={onChangeValue}>
-                {userData?.bio}
-              </textarea>
+              <textarea
+                className="input"
+                id="bio"
+                name="bio"
+                rows={4}
+                value={userData?.bio}
+                onChange={onChangeValue}
+              />
             ) : (
               <p>{userData?.bio}</p>
             )}
           </div>
           <hr />
-          <div className="profile-item">
-            <label className="profile-label" htmlFor="website">
-              Website
-            </label>
-            <input
-              type="text"
-              className="input"
-              id="website"
-              name="website"
-              value={userData?.website}
-              onChange={onChangeValue}
-              readOnly={!isEditable}
-            />
-          </div>
+          {textInput("website", userData?.website)}
           <hr />
-          <div className="profile-item">
-            <label className="profile-label" htmlFor="email">
-              Email
-            </label>
-            <input
-              type="text"
-              className="input"
-              id="email"
-              name="email"
-              value={userData?.email}
-              onChange={onChangeValue}
-              readOnly={!isEditable}
-            />
-          </div>
+          {textInput("email", userData?.email)}
           <hr />
           <div className="profile-item">
             <label className="profile-label" htmlFor="password">
@@ -183,10 +168,8 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
               name="password"
               minLength={6}
               placeholder="******"
-              value={password}
-              onChange={(event) => {
-                setPassword(event.target.value);
-              }}
+              value={userData?.password}
+              onChange={onChangeValue}
               readOnly={!isEditable}
             />
           </div>
@@ -195,6 +178,7 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
       </form>
       <ChangePhotoModal
         isVisible={showPhotoModal}
+        id={userData!.id}
         photo={userData?.photo}
         onClose={onChangePhoto}
       />

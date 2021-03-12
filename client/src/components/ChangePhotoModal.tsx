@@ -4,6 +4,7 @@ import "./ChangePhotoModal.css";
 
 function ChangePhotoModal(props: {
   isVisible: boolean;
+  id:string;
   photo?: string;
   onClose: (photo?: string) => void;
 }) {
@@ -45,7 +46,7 @@ function ChangePhotoModal(props: {
   function onFileSelected(files: any): void {
     // Check if file is an image
     if (files[0] && files[0].type.match(/image.*/)) {
-      uploadImage(files[0], (error, url) => {
+      uploadImage(props.id, files[0], (error, url) => {
         if (error) {
           // show error
         } else {

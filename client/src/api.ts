@@ -14,7 +14,9 @@ function post(
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error(response.statusText);
+        console.log(response);
+        // throw new Error(response.statusText);
+        throw response.statusText;
       }
       return response.json();
     })
@@ -64,11 +66,13 @@ export function updateProfile(
 
 /**
  * Upload an image and get the url for it
+ * @param id User's ID
  * @param file File to upload
  * @param callback Url from server
  */
-export function uploadImage(file: any, callback: (error: any, url?: string) => void) {
+export function uploadImage(id:string, file: any, callback: (error: any, url?: string) => void) {
   const formData = new FormData();
+  formData.append("id", id);
   formData.append("image", file);
   // Upload selected file to server
   fetch("/user/image", {

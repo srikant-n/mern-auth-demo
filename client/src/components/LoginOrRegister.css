@@ -45,7 +45,8 @@ form .icon {
 }
 
 .error {
-  margin: -5px 0;
+  margin: -5px auto;
+  color: red;
 }
 
 input[type="submit"] {
