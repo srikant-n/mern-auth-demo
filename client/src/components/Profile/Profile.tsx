@@ -1,16 +1,32 @@
 import React, { useState } from "react";
-import { updateProfile } from "../api";
-import { Logo, CameraIcon } from "../icons";
-import UserData from "../UserData";
+import { useHistory } from "react-router";
+import { updateProfile } from "../../api";
+import { Logo, CameraIcon } from "../../icons";
+import UserData from "../../UserData";
 import ChangePhotoModal from "./ChangePhotoModal";
 import "./Profile.css";
+import UserMenu from "./UserMenu";
 
 function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any }) {
   const [userData, setUserData] = useState<UserData | undefined>(props.user);
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [showPhotoModal, setShowPhotoModal] = useState<boolean>(false);
+  const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
 
+  const history = useHistory();
+
+  function onClickMenuItem(item: string): void {
+    setShowUserMenu(false);
+    switch (item) {
+      case "profile":
+        history.push("/profile");
+        break;
+      case "logout":
+        history.push("/login");
+        break;
+    }
+  }
   /**
    * Input value changed
    * @param event
@@ -29,7 +45,7 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
   }
 
   /**
-   *
+   * Photo changed
    * @param url New photo url
    */
   function onChangePhoto(url?: string): void {
@@ -55,16 +71,22 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
     event.preventDefault();
     updateProfile(userData!, (error, user?) => {
       if (error) {
-        console.log("/update error: " + error);
         setErrorMessage("Failed to update. Please try again.");
       } else {
         setUserData(user!);
+        props.onUpdateUser(user!);
         setIsEditable(false);
       }
     });
   }
 
-  function textInput(name:string, value?:string) {
+  /**
+   * Get Text input for form
+   * @param name Input name and label
+   * @param value Input field value
+   * @returns Form item component
+   */
+  function textInput(name: string, value?: string) {
     return (
       <div className="profile-item">
         <label className="profile-label" htmlFor={name}>
@@ -87,7 +109,7 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
     <div className="profile-container">
       <header>
         <Logo />
-        <img className="photo" src={userData!.photo} alt="User" />
+        <img className="photo" src={userData!.photo} alt="User" onClick={()=>setShowUserMenu(true)} />
       </header>
       <div className="page-info">
         <h2>Personal info</h2>
@@ -153,7 +175,7 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
             )}
           </div>
           <hr />
-          {textInput("website", userData?.website)}
+          {textInput("phone", userData?.phone)}
           <hr />
           {textInput("email", userData?.email)}
           <hr />
@@ -182,6 +204,7 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
         photo={userData?.photo}
         onClose={onChangePhoto}
       />
+      <UserMenu isVisible={showUserMenu} onClickMenuItem={onClickMenuItem} onClose={() => setShowUserMenu(false)} />
     </div>
   );
 }

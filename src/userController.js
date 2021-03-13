@@ -89,7 +89,7 @@ const userController = {
       req.body.salt = hash.salt;
       req.body.iterations = hash.iterations;
     }
-    
+
     model.updateUser(id, req.body, (err, user) => {
       if (err) {
         res.statusMessage = "Email already in use";
@@ -115,7 +115,7 @@ function getSendableUserData(user) {
     name: user.name,
     photo: user.photo,
     bio: user.bio,
-    website: user.website,
+    phone: user.phone,
     email: user.email ? user.email : user.socialMail,
   };
 }

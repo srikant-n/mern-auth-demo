@@ -3,6 +3,10 @@
   --submit-button-hover: #206bce;
   --dull-text-color: #828282;
 }
+.user-menu {
+  top: 60px;
+  right: 10px;
+}
 
 .profile-container {
   padding: 18px;

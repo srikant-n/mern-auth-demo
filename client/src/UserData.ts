@@ -3,7 +3,7 @@ interface UserData {
   name?: string;
   photo?: string;
   bio?: string;
-  website?: string;
+  phone?: string;
   email: string;
   password?:string;
 }

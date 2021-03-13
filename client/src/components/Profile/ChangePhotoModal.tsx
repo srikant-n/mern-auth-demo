@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { uploadImage } from "../api";
+import { uploadImage } from "../../api";
 import "./ChangePhotoModal.css";
 
 function ChangePhotoModal(props: {

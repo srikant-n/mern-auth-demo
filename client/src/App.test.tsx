@@ -1,9 +1,14 @@
-import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
-import App from './App';
-import UserData from './UserData';
+import React from "react";
+import { render, fireEvent, screen } from "@testing-library/react";
+import App from "./App";
+import UserData from "./UserData";
+import { BrowserRouter } from "react-router-dom";
 
 const fetchMock = require("fetch-mock-jest");
+
+afterEach(() => {
+  fetchMock.restore();
+});
 
 test("profile should be visible with data after login", async () => {
   const email = "auth@mern.com";
@@ -13,26 +18,44 @@ test("profile should be visible with data after login", async () => {
     name: "Test User",
     photo: "",
     bio: "I am a test user created for unit tests",
-    website: "www.test.com",
+    phone: "123456789",
     email: email,
   };
 
-  fetchMock.postOnce("/login", userData);
+  fetchMock.postOnce("/user/login", userData);
 
-  const { getByLabelText, getByText } = render(
-    <App />
+  const { getByPlaceholderText, getByLabelText, getByText } = render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   );
 
-  const emailField = getByLabelText(/email/i);
-  const passwordField = getByLabelText(/password/i);
-  fireEvent.change(emailField, {value: email});
-  fireEvent.change(passwordField, {value: password});
+  const emailField = getByPlaceholderText(/email/i);
+  const passwordField = getByPlaceholderText(/password/i);
+  fireEvent.change(emailField, { value: email });
+  fireEvent.change(passwordField, { value: password });
   fireEvent.click(getByText("Login"));
 
-  expect(await screen.findAllByLabelText("Name")).toBeInTheDocument();
-  expect(getByLabelText("Name")).toHaveValue(userData.name);
-  expect(getByLabelText("Photo")).toHaveValue(userData.photo);
-  expect(getByLabelText("Bio")).toHaveValue(userData.bio);
-  expect(getByLabelText("Email")).toHaveValue(userData.email);
-  expect(getByLabelText("Website")).toHaveValue(userData.website);
+  expect(await screen.findByLabelText(/name/i)).toBeInTheDocument();
+  expect(getByLabelText(/name/i)).toHaveValue(userData.name);
+  // expect(getByLabelText(/photo/i)).toHaveValue(userData.photo);
+  expect(getByText(userData.bio!)).toBeInTheDocument();
+  expect(getByLabelText(/email/i)).toHaveValue(userData.email);
+  expect(getByLabelText(/phone/i)).toHaveValue(userData.phone);
+});
+
+
+describe("login and register page", ()=>{
+  test("Login menu is toggled on clicking register/login", async () => {
+    const { getByText } = render(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    );
+    fireEvent.click(getByText("Register"));
+  
+    expect(await screen.findByText("Login")).toBeInTheDocument();
+  });
+
+  
 });

@@ -14,7 +14,6 @@ function post(
   })
     .then((response) => {
       if (!response.ok) {
-        console.log(response);
         // throw new Error(response.statusText);
         throw response.statusText;
       }
