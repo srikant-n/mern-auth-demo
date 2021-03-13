@@ -23,7 +23,7 @@ const userController = {
     model.addUserByEmailAndPassword(req.body.email, password, (err, user) => {
       if (err) {
         res.statusMessage = "Email already in use";
-        res.status(401).end();
+        res.status(401).send("Email already in use");
         // res.status(401).send("Email already in use");
       } else {
         res.send(getSendableUserData(user));
@@ -61,7 +61,7 @@ const userController = {
           res.send(getSendableUserData(user));
         } else {
           res.statusMessage = "Incorrect password";
-          res.status(401).end();
+          res.status(401).send("Incorrect password");
         }
       }
     });
@@ -93,7 +93,7 @@ const userController = {
     model.updateUser(id, req.body, (err, user) => {
       if (err) {
         res.statusMessage = "Email already in use";
-        res.status(401).end();
+        res.status(401).send("Email already in use");
       } else {
         res.send(getSendableUserData(user));
       }

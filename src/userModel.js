@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema({
   facebookId: { type: String, unique: true, sparse: true },
   twitterId: { type: String, unique: true, sparse: true },
   date: { type: Date, default: Date.now },
+  sessions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'session' }]
 });
 
 /**
