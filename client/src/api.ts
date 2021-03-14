@@ -69,7 +69,7 @@ export function updateProfile(
  * @param file File to upload
  * @param callback Url from server
  */
-export function uploadImage(id:string, file: any, callback: (error: any, url?: string) => void) {
+export function uploadImage(id: string, file: any, callback: (error: any, url?: string) => void) {
   const formData = new FormData();
   formData.append("id", id);
   formData.append("image", file);
@@ -96,15 +96,14 @@ export function uploadImage(id:string, file: any, callback: (error: any, url?: s
     });
 }
 
-
 // Session
 /**
  * Create and get a session id
  * @param userId User's id to create session for
  * @param callback Session ID
  */
-export function getSessionId(userId:string, callback: (error: any, sessionId: string) => void) {
-  post("/user/session/register", {id:userId}, callback);
+export function getSessionId(userId: string, callback: (error: any, sessionId: string) => void) {
+  post("/user/session/register", { id: userId }, callback);
 }
 
 /**
@@ -112,6 +111,24 @@ export function getSessionId(userId:string, callback: (error: any, sessionId: st
  * @param session Session ID for fetching
  * @param callback UserData
  */
-export function loginWithSession(session:string,callback: (error:any, user?:UserData)=>void) {
-  post("/user/session/login", {"session":session}, callback);
+export function loginWithSession(session: string, callback: (error: any, user?: UserData) => void) {
+  post("/user/session/login", { session: session }, callback);
+}
+
+/**
+ * Login or register using google
+ * @param id ID from google sign in
+ * @param callback UserData from server
+ */
+export function loginWithGoogle(id: string, userData:UserData, callback: (error: any, user?: UserData) => void) {
+  post("/user/google", {"id":id, user:userData} , callback);
+}
+
+export function logoutGoogle(callback:() => any) {
+  // sign out google
+  const  auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+    callback();
+  });
 }

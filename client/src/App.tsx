@@ -25,18 +25,23 @@ function App() {
 
   function onSessionLogin(error:any, userData?:UserData):void {
     if(userData) {
-      setUser(userData);
-      history.push("/profile");
+      saveLoginUser(userData!);
     } else {
       history.push("/login");
     } 
   }
 
-  function onLogin(userData?: UserData) {
+  function onLogin(userData: UserData, saveCookie:boolean) {
+    if(saveCookie) {
+      getSessionId(userData?.id!, (error, sessionId) => {
+        !error && Cookie.setSessionCookie(sessionId);
+      });
+    }
+    saveLoginUser(userData);
+  }
+
+  function saveLoginUser(userData: UserData) {
     setUser(userData);
-    getSessionId(userData?.id!, (error, sessionId) => {
-      !error && Cookie.setSessionCookie(sessionId);
-    });
     history.push("/profile");
   }
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
-import { updateProfile } from "../../api";
+import { logoutGoogle, updateProfile } from "../../api";
 import Cookie from "../../cookie";
 import { Logo, CameraIcon } from "../../icons";
 import UserData from "../../UserData";
@@ -8,7 +8,7 @@ import ChangePhotoModal from "./ChangePhotoModal";
 import "./Profile.css";
 import UserMenu from "./UserMenu";
 
-function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any }) {
+function Profile(props: { user: UserData; onUpdateUser: (user?: UserData) => any }) {
   const [userData, setUserData] = useState<UserData | undefined>(props.user);
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -25,7 +25,9 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
         break;
       case "logout":
         Cookie.deleteSessionCookie();
-        history.push("/login");
+        logoutGoogle(()=>{
+          history.push("/login");
+        });        
         break;
     }
   }
@@ -111,12 +113,11 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
     <div className="profile-container">
       <header>
         <Logo />
-        <div className="user-menu-button">
+        <div className="user-menu-button" onClick={() => setShowUserMenu(true)}>
           <img
             className="photo"
             src={userData!.photo}
             alt="User"
-            onClick={() => setShowUserMenu(true)}
           />
           {showUserMenu ? <p>&#9660;</p> : <p>&#9650;</p>}
         </div>

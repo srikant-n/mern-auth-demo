@@ -21,8 +21,6 @@ const userSchema = new mongoose.Schema({
   iterations: Number,
   socialMail: { type: String, unique: true, sparse: true },
   googleId: { type: String, unique: true, sparse: true },
-  facebookId: { type: String, unique: true, sparse: true },
-  twitterId: { type: String, unique: true, sparse: true },
   date: { type: Date, default: Date.now },
   sessions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'session' }]
 });
@@ -59,11 +57,44 @@ module.exports.addUserByEmailAndPassword = (email, hash, callback) => {
 };
 
 /**
+ * Find or add user with google id
+ * @param {String} id User's google id
+ * @param {Object} hash User data
+ * @param {requestCallback} callback Callback for user
+ */
+module.exports.googleLogin = (id, userData, callback) => {
+  User.findOne({ googleId: id }, (err_findId, data_findId) => {
+    if(data_findId) { // Found user
+      callback(err_findId, data_findId);
+      return;
+    }
+
+    // Find user with email and update if it exists
+    User.findOneAndUpdate({email: userData.email}, userData, { new: true, omitUndefined: true }, (err_update, data_update)=>{
+      if(data_update) { // Found user
+        callback(err_update, data_update);
+      } else {
+        // Add new user
+        const user = new User({
+          socialMail: userData.email.toLowerCase(),
+          email:userData.email.toLowerCase(),
+          name: userData.name,
+          photo: userData.photo,
+          googleId: id
+        });
+        user.save(callback);
+      }
+    });
+  });
+
+};
+
+/**
  * Update user data
  * @param {String} id User's _id in db
  * @param {Object} userData User's data to update
  * @param {requestCallback} callback Callback with userdata after update
  */
 module.exports.updateUser = (id, userData, callback) => {
-  User.findByIdAndUpdate(id, userData, { new: true, omitUndefined: true }, callback);
+  User.findByIdAndUpdate(id, userData, { new: true, omitUndefined: true, overwrite: true }, callback);
 };

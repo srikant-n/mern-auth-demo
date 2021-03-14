@@ -27,6 +27,8 @@ router.post("/login", userController.loginByEmail);
 router.post("/update", userController.updateUserData);
 // Upload received image
 router.post("/image", upload.single("image"), userController.uploadImage);
+// Google Login user
+router.post("/google", userController.loginByGoogleId);
 // Login via session
 router.post("/session/login", sessionController.getUserSession);
 // Add new session

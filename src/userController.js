@@ -66,6 +66,23 @@ const userController = {
       }
     });
   },
+  loginByGoogleId(req,res){
+    // Check if id is sent
+    if (!req.body.id || !req.body.user) {
+      res.statusMessage = "Data missing";
+      res.status(400).end();
+      return;
+    }
+
+    model.googleLogin(req.body.id, req.body.user, (err, user) => {
+      if (err) {
+        res.statusMessage = "Email is not registered";
+        res.status(401).end();
+      } else {
+        res.send(getSendableUserData(user));
+      }
+    });
+  },
   async updateUserData(req, res) {
     // Update user's data in db
     // Check if id is sent

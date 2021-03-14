@@ -36,7 +36,6 @@ function UserMenu(props: {
    * @param event Click event
    */
   function closeMenuOnBodyClick(event: any):void {
-    console.log(event);
     // get the event path
     const path = event.composedPath();
     // check if it has the menu element

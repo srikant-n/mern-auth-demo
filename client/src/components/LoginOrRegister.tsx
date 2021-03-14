@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { login, register } from "../api";
-import { EmailIcon, Logo, PasswordIcon, GoogleIcon, FacebookIcon, GithubIcon } from "../icons";
+import { login, loginWithGoogle, register } from "../api";
+import { EmailIcon, Logo, PasswordIcon } from "../icons";
 import UserData from "../UserData";
+import GoogleSignIn from "./GoogleSignIn";
 import "./LoginOrRegister.css";
 
 function LoginOrRegister(props: {
   isLogin: boolean;
   pathToToggleLogin?: string;
-  onLogin: (user: UserData) => void;
+  onLogin: (user: UserData, saveCookie:boolean) => void;
 }) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -44,9 +45,26 @@ function LoginOrRegister(props: {
     if (error) {
       setErrorMessage(error);
     } else {
-      props.onLogin(user!);
+      props.onLogin(user!, true);
     }
   }
+
+  function onGoogleSignIn(googleUser:any):void {
+    const profile = googleUser.getBasicProfile();
+    const user = {id:profile.getId(), name:profile.getName(), photo:profile.getImageUrl(), email:profile.getEmail()};
+    // const id_token = googleUser.getAuthResponse().id_token;
+    loginWithGoogle(profile.getId(), user, (error, userData)=>{
+      if(userData) {
+        props.onLogin(userData, false);
+      }
+    });
+
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  }
+  
 
   /**
    * @returns Component to display with link to toggle between login and register
@@ -107,9 +125,13 @@ function LoginOrRegister(props: {
         </form>
         <p className="centered-small">or continue with these social profile</p>
         <div className="social-group">
-          <GoogleIcon className="social-button" />
+        {/* <div className="g-signin2" data-onsuccess="onGoogleSignIn" /> */}
+        {/* <div className="g-signin2" data-onsuccess="onGoogleSignIn" /> */}
+        <GoogleSignIn onLogin={onGoogleSignIn} />
+
+          {/* <GoogleIcon className="social-button" />
           <FacebookIcon className="social-button" />
-          <GithubIcon className="social-button" />
+          <GithubIcon className="social-button" /> */}
         </div>
         {getToggleComponent()}
       </div>
