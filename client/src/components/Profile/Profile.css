@@ -8,6 +8,15 @@
   right: 10px;
 }
 
+.user-menu-button {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 10px;
+  gap:5px;
+  cursor: pointer;
+}
+
 .profile-container {
   padding: 18px;
 }

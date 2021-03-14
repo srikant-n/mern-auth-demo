@@ -111,7 +111,15 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
     <div className="profile-container">
       <header>
         <Logo />
-        <img className="photo" src={userData!.photo} alt="User" onClick={()=>setShowUserMenu(true)} />
+        <div className="user-menu-button">
+          <img
+            className="photo"
+            src={userData!.photo}
+            alt="User"
+            onClick={() => setShowUserMenu(true)}
+          />
+          {showUserMenu ? <p>&#9660;</p> : <p>&#9650;</p>}
+        </div>
       </header>
       <div className="page-info">
         <h2>Personal info</h2>
@@ -206,7 +214,11 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
         photo={userData?.photo}
         onClose={onChangePhoto}
       />
-      <UserMenu isVisible={showUserMenu} onClickMenuItem={onClickMenuItem} onClose={() => setShowUserMenu(false)} />
+      <UserMenu
+        isVisible={showUserMenu}
+        onClickMenuItem={onClickMenuItem}
+        onClose={() => setShowUserMenu(false)}
+      />
     </div>
   );
 }
