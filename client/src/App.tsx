@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
+import { getSessionId, loginWithSession } from "./api";
 import "./App.css";
 import LoginOrRegister from "./components/LoginOrRegister";
 import Profile from "./components/Profile";
+import Cookie from "./cookie";
+import { Logo } from "./icons";
 import UserData from "./UserData";
 
 function App() {
@@ -15,8 +18,25 @@ function App() {
     email: "test@me.com",
   };
 
+  useEffect(()=>{
+    loginWithSession(Cookie.getSessionCookie(), onSessionLogin);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
+
+  function onSessionLogin(error:any, userData?:UserData):void {
+    if(userData) {
+      setUser(userData);
+      history.push("/profile");
+    } else {
+      history.push("/login");
+    } 
+  }
+
   function onLogin(userData?: UserData) {
     setUser(userData);
+    getSessionId(userData?.id!, (error, sessionId) => {
+      !error && Cookie.setSessionCookie(sessionId);
+    });
     history.push("/profile");
   }
 
@@ -35,7 +55,7 @@ function App() {
           {user ? <Profile user={user} onUpdateUser={setUser} /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/">
-          <Redirect to="/login" />
+          <Logo className="App-logo" />
           {/* <Profile user={dummyUser} onUpdateUser={setUser} /> */}
         </Route>
       </Switch>

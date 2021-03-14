@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { updateProfile } from "../../api";
+import Cookie from "../../cookie";
 import { Logo, CameraIcon } from "../../icons";
 import UserData from "../../UserData";
 import ChangePhotoModal from "./ChangePhotoModal";
@@ -23,6 +24,7 @@ function Profile(props: { user: UserData; onUpdateUser: (user: UserData) => any 
         history.push("/profile");
         break;
       case "logout":
+        Cookie.deleteSessionCookie();
         history.push("/login");
         break;
     }

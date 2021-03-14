@@ -3,7 +3,7 @@ import UserData from "./UserData";
 function post(
   url: string,
   data: object,
-  callback: (error: any, user?: UserData) => void
+  callback: (error: any, data?: any) => void
 ): Promise<void> {
   return fetch(url, {
     method: "POST",
@@ -94,4 +94,24 @@ export function uploadImage(id:string, file: any, callback: (error: any, url?: s
       // Error uploading
       callback(error, undefined);
     });
+}
+
+
+// Session
+/**
+ * Create and get a session id
+ * @param userId User's id to create session for
+ * @param callback Session ID
+ */
+export function getSessionId(userId:string, callback: (error: any, sessionId: string) => void) {
+  post("/user/session/register", {id:userId}, callback);
+}
+
+/**
+ * Login using session id
+ * @param session Session ID for fetching
+ * @param callback UserData
+ */
+export function loginWithSession(session:string,callback: (error:any, user?:UserData)=>void) {
+  post("/user/session/login", {"session":session}, callback);
 }
