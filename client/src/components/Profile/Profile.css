@@ -208,13 +208,13 @@ input[type="submit"].profile-button:hover {
 
 @media (min-width: 900px) {
   .profile-form {
-    position: absolute;
     width: 845px;
+    margin: auto;
     /* height: 580px; */
-    top: 50%;
-    left: 50%;
+    /* top: 50%; */
+    /* left: 50%; */
     padding: 30px 50px 10px 50px;
-    transform: translate(-50%, -50%);
+    /* transform: translate(-50%, -50%); */
     border: 1px solid #e0e0e0;
     box-sizing: border-box;
     border-radius: 12px;
@@ -240,10 +240,30 @@ input[type="submit"].profile-button:hover {
   }
 
   .profile-container footer {
+    margin: -20px;
+    display: flex;
+    align-self: center;
+    position: relative;
+    bottom: -20px;
+    width: 845px;
+  }
+}
+
+
+@media (min-width: 900px) and (min-height:900px) {
+  .profile-form {
+    position: absolute;
+    width: 845px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* .profile-container footer {
     display: flex;
     align-self: center;
     position: absolute;
     bottom: -30px;
     width: 845px;
-  }
+  } */
 }

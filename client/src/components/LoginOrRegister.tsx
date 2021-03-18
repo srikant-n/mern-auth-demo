@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { login, loginWithGoogle, register } from "../api";
 import { EmailIcon, Logo, PasswordIcon } from "../icons";
@@ -10,12 +11,21 @@ import "./LoginOrRegister.css";
 function LoginOrRegister(props: {
   isLogin: boolean;
   pathToToggleLogin?: string;
-  onLogin: (user: UserData, saveCookie:boolean) => void;
+  onLogin: (user: UserData, saveCookie: boolean) => void;
 }) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [requestSent, setRequestSent] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+
+  useEffect(() => {
+    // Login with google if authenticated
+    const params = window.location.hash.substr(1);
+    if (params) {
+      const data = Object.fromEntries(new URLSearchParams(params));
+      loginWithGoogle(data.access_token, onLogin);
+    }
+  }, []);
 
   /**
    * Login/Register form submitted
@@ -50,34 +60,23 @@ function LoginOrRegister(props: {
     }
   }
 
-  function onGoogleSignIn(googleUser:any):void {
-    const profile = googleUser.getBasicProfile();
-    const user = {id:profile.getId(), name:profile.getName(), photo:profile.getImageUrl(), email:profile.getEmail()};
-    // const id_token = googleUser.getAuthResponse().id_token;
-    loginWithGoogle(profile.getId(), user, (error, userData)=>{
-      if(userData) {
-        props.onLogin(userData, false);
-      }
-    });
-
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  }
-  
-
   /**
    * @returns Component to display with link to toggle between login and register
    */
   function getToggleComponent() {
     return props.isLogin ? (
       <p className="centered-small">
-        Not a member? <Link className="page-toggle" to={props.pathToToggleLogin!}>Register</Link>
+        Not a member?{" "}
+        <Link className="page-toggle" to={props.pathToToggleLogin!}>
+          Register
+        </Link>
       </p>
     ) : (
       <p className="centered-small">
-        Already a member? <Link className="page-toggle" to={props.pathToToggleLogin!}>Login</Link>
+        Already a member?{" "}
+        <Link className="page-toggle" to={props.pathToToggleLogin!}>
+          Login
+        </Link>
       </p>
     );
   }
@@ -88,8 +87,8 @@ function LoginOrRegister(props: {
         <Logo />
         <h3>Join thousands of learners from around the world</h3>
         <p>
-          Master web development by making real-life projects. There are multiple paths for you to
-          choose
+          Master web development by making real-life projects. There are
+          multiple paths for you to choose
         </p>
         <form onSubmit={submitLoginOrRegister}>
           <div className="login-form-element">
@@ -122,14 +121,15 @@ function LoginOrRegister(props: {
             />
           </div>
           <p className="error">{errorMessage}</p>
-          <input type="submit" value={props.isLogin ? "Login" : "Register"} aria-label="Login" />
+          <input
+            type="submit"
+            value={props.isLogin ? "Login" : "Register"}
+            aria-label="Login"
+          />
         </form>
         <p className="centered-small">or continue with</p>
         <div className="social-group">
-        {/* <div className="g-signin2" data-onsuccess="onGoogleSignIn" /> */}
-        {/* <div className="g-signin2" data-onsuccess="onGoogleSignIn" /> */}
-        <GoogleSignIn onLogin={onGoogleSignIn} />
-
+          <GoogleSignIn />
           {/* <GoogleIcon className="social-button" />
           <FacebookIcon className="social-button" />
           <GithubIcon className="social-button" /> */}
@@ -137,7 +137,6 @@ function LoginOrRegister(props: {
         {getToggleComponent()}
         <Footer />
       </div>
-      
     </div>
   );
 }

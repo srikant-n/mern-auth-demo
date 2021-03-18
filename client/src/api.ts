@@ -120,9 +120,17 @@ export function loginWithSession(session: string, callback: (error: any, user?: 
  * @param id ID from google sign in
  * @param callback UserData from server
  */
-export function loginWithGoogle(id: string, userData:UserData, callback: (error: any, user?: UserData) => void) {
-  post("/user/google", {"id":id, user:userData} , callback);
+export function loginWithGoogle(token:string, callback: (error: any, user?: UserData) => void) {
+  // post("/user/google", {"id":id, user:userData} , callback);
+  fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`).then(res => res.json()).then(data => {
+  const userData = {name:data.name, email:data.email, photo:data.picture};
+  post("/user/google", {id:data.sub, user:userData} , callback);
+}).catch(error => console.log(error));
 }
+// export function loginWithGoogle(id: string, userData:UserData, callback: (error: any, user?: UserData) => void) {
+//   // post("/user/google", {"id":id, user:userData} , callback);
+//   post("/user/google", {"id":id, user:userData} , callback);
+// }
 
 export function logoutGoogle(callback:() => any) {
   // sign out google
@@ -131,4 +139,17 @@ export function logoutGoogle(callback:() => any) {
     console.log('User signed out.');
     callback();
   });
+}
+
+export function getGoogleSignIn(callback :(error: any, data?:{url:string})=>void){
+  fetch("/google")
+    .then((response) => {
+      if (!response.ok) {
+        // throw new Error(response.statusText);
+        throw response.statusText;
+      }
+      return response.json();
+    })
+    .then((data) => callback(null, data))
+    .catch((error) => callback(error, undefined));
 }

@@ -29,7 +29,18 @@ mongoose
   .catch((err) => console.error(err));
 
   app.use("/user", router);
-  app.get("*", (req,res)=>{res.sendFile(path.join(__dirname, "client", "build", "index.html"))});
+  app.get("/google", (req,res)=>{
+    const googleUrl = "https://accounts.google.com/o/oauth2/v2/auth?" + 
+    "scope=https://www.googleapis.com/auth/userinfo.profile" + 
+    "&include_granted_scopes=true" + 
+    "&response_type=token" + 
+    `&client_id=${process.env.GOOGLE_CLIENT_ID}` + 
+    `&redirect_uri=${env === "production" ? process.env.GOOGLE_REDIRECT : process.env.GOOGLE_REDIRECT_DEV}`;
+    res.send({url:googleUrl});
+  });
+  app.get("*", (req,res)=>{
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"))
+  });
 
 app.listen(port, () => {
   console.log(`Litening on port: ${port}`);
