@@ -4,6 +4,7 @@ import { logoutGoogle, updateProfile } from "../../api";
 import Cookie from "../../cookie";
 import { Logo, CameraIcon } from "../../icons";
 import UserData from "../../UserData";
+import Footer from "../Footer";
 import ChangePhotoModal from "./ChangePhotoModal";
 import "./Profile.css";
 import UserMenu from "./UserMenu";
@@ -149,6 +150,7 @@ function Profile(props: { user: UserData; onUpdateUser: (user?: UserData) => any
         </div>
         <p className="error">{errorMessage}</p>
         <div className="profile">
+        <hr />
           <div className="profile-item">
             <label className="profile-label" htmlFor="photo">
               Photo
@@ -206,8 +208,9 @@ function Profile(props: { user: UserData; onUpdateUser: (user?: UserData) => any
               readOnly={!isEditable}
             />
           </div>
-          <hr />
+          {/* <hr /> */}
         </div>
+        <Footer />
       </form>
       <ChangePhotoModal
         isVisible={showPhotoModal}

@@ -1,6 +1,6 @@
 .user-menu {
   position: absolute;
-  padding: 14px 12px;
+  padding: 8px 10px;
   background: #ffffff;
   border: 1px solid #e0e0e0;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
@@ -27,6 +27,7 @@
   align-items: center;
   gap: 10px;
   padding: 2px 10px;
+  margin: 5px 0;
   border-radius: 8px;
   background-color: #fafafa;
   color: #4f4f4f;

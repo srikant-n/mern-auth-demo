@@ -106,6 +106,8 @@ input[type="submit"]:hover {
 
 /* footer */
 footer {
+  position: absolute;
+  margin: 0 -18px;
   padding: 18px;
   width: 100%;
   box-sizing: border-box;
@@ -124,7 +126,7 @@ footer a:hover {
   color: var(--submit-button);
 }
 
-@media (min-height: 580px) {
+@media (min-height: 580px) and (max-width: 599px) {
   /* Set footer to bottom of page */
   footer {
     position: fixed;
@@ -132,3 +134,27 @@ footer a:hover {
   }
 }
 /* End footer */
+
+@media (min-width: 600px) {
+  /* center and add border */
+  .container {
+    position: absolute;
+    width: 475px;
+    top: 50%;
+    left: 50%;
+    padding: 50px 60px;
+    transform: translate(-50%,-50%);
+    border: 1px solid #bdbdbd;
+    box-sizing: border-box;
+    border-radius: 24px;
+  }
+
+  /* set footer after container */
+  footer {
+    position: absolute;
+    margin: 0 -60px;
+    padding: 0;
+    bottom: -30px;
+    width: 475px;
+  }
+}

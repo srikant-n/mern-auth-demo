@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { login, loginWithGoogle, register } from "../api";
 import { EmailIcon, Logo, PasswordIcon } from "../icons";
 import UserData from "../UserData";
+import Footer from "./Footer";
 import GoogleSignIn from "./GoogleSignIn";
 import "./LoginOrRegister.css";
 
@@ -123,7 +124,7 @@ function LoginOrRegister(props: {
           <p className="error">{errorMessage}</p>
           <input type="submit" value={props.isLogin ? "Login" : "Register"} aria-label="Login" />
         </form>
-        <p className="centered-small">or continue with these social profile</p>
+        <p className="centered-small">or continue with</p>
         <div className="social-group">
         {/* <div className="g-signin2" data-onsuccess="onGoogleSignIn" /> */}
         {/* <div className="g-signin2" data-onsuccess="onGoogleSignIn" /> */}
@@ -134,11 +135,9 @@ function LoginOrRegister(props: {
           <GithubIcon className="social-button" /> */}
         </div>
         {getToggleComponent()}
+        <Footer />
       </div>
-      <footer>
-        <a href="srikant-n.github.io/">Srikant Nimmagadda</a>
-        <a href="https://devchallenges.io/">devchallenges.io</a>
-      </footer>
+      
     </div>
   );
 }

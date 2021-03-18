@@ -9,11 +9,11 @@
 }
 
 .user-menu-button {
-  display:flex;
+  display: flex;
   flex-direction: row;
   align-items: center;
   font-size: 10px;
-  gap:5px;
+  gap: 5px;
   cursor: pointer;
 }
 
@@ -156,7 +156,7 @@ input[type="submit"].profile-button:hover {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 0;
+  padding: 40px 18px;
 }
 
 .profile-item label {
@@ -167,9 +167,13 @@ input[type="submit"].profile-button:hover {
   text-transform: uppercase;
 }
 
+.profile-item p {
+  margin: 0;
+}
+
 .profile-item .input {
   height: 12px;
-  padding: 18px;
+  /* padding: 18px; */
   outline: none;
   flex-grow: 1;
   text-align: left;
@@ -197,3 +201,49 @@ input[type="submit"].profile-button:hover {
 }
 /* end profile data */
 /* end profile form */
+
+.profile-container footer {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .profile-form {
+    position: absolute;
+    width: 845px;
+    /* height: 580px; */
+    top: 50%;
+    left: 50%;
+    padding: 30px 50px 10px 50px;
+    transform: translate(-50%, -50%);
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+    border-radius: 12px;
+  }
+
+  .profile-item {
+    padding: 20px 0;
+  }
+
+  .profile-form hr {
+    margin: 0 -50px;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .profile-item label {
+    width: 180px;
+  }
+
+  .profile-item .input[readonly] {
+    padding-left: 0;
+    padding-right: unset;
+    text-align: left;
+  }
+
+  .profile-container footer {
+    display: flex;
+    align-self: center;
+    position: absolute;
+    bottom: -30px;
+    width: 845px;
+  }
+}
