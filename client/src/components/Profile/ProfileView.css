@@ -1,6 +1,4 @@
 * {
-  --submit-button: #2f80ed;
-  --submit-button-hover: #206bce;
   --dull-text-color: #828282;
 }
 
@@ -24,10 +22,7 @@
 /* end page info */
 
 /* profile data fields */
-.profile {
-  display: flex;
-  flex-direction: column;
-}
+
 
 /* profile header */
 .profile-header {
@@ -47,43 +42,28 @@
 .profile-info p {
   font-size: 13px;
   font-size: 500;
-  line-height: 0.8em;
+  line-height: 0.5em;
   color: var(--dull-text-color);
 }
 
-.profile button {
-  width: 95px;
-  height: 38px;
-  border: 1px solid var(--dull-text-color);
-  border-radius: 12px;
+.profile-view .profile-button {
   background-color: white;
   color: var(--dull-text-color);
-  font-size: 16px;
 }
 
-.profile button:hover {
+.profile-view .profile-button:hover {
   background-color: #eee;
-  cursor: pointer;
 }
 /* end profile header */
 
 /* profile data */
 /* photo */
-.photo-container {
+.profile-view .photo-container {
   position: relative;
-  width: 72px;
-  height: 72px;
-}
-
-.photo-container .photo {
-  width: 72px;
-  height: 72px;
-  border-radius: 8px;
-  object-fit: cover;
 }
 /* end photo */
 
-.profile-item {
+.profile-view .profile-item {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -91,7 +71,7 @@
   padding: 30px 18px;
 }
 
-.profile-item .profile-label {
+.profile-view .profile-label {
   width: 100px;
   color: #bdbdbd;
   font-size: 13px;
@@ -99,11 +79,7 @@
   text-transform: uppercase;
 }
 
-/* .profile-item p {
-  margin: 0;
-} */
-
-.profile-item .profile-value {
+.profile-view .profile-value {
   color: #333;
   font-weight: 500;
   outline: none;
@@ -125,7 +101,7 @@
 }
 
 @media (min-width: 900px) {
-  .profile {
+  .profile   {
     width: 845px;
     margin: auto;
     padding: 30px 50px 10px 50px;
@@ -134,7 +110,7 @@
     border-radius: 12px;
   }
 
-  .profile-item {
+  .profile-view .profile-item {
     padding: 20px 0;
   }
 
@@ -143,23 +119,18 @@
     border-top: 1px solid #e0e0e0;
   }
 
-  .profile-item .profile-label {
+  .profile-view .profile-label {
     width: 180px;
   }
 
-  .profile-item .profile-value {
+  .profile-view .profile-value {
     padding-left: 0;
     padding-right: unset;
     text-align: left;
   }
 
-  .profile footer {
-    margin: -15px -60px;
-    padding: 0;
-    align-self: center;
-    position: relative;
+  .profile-view footer {
     bottom: -20px;
-    width: 865px;
   }
 
   .display-mobile {
@@ -169,7 +140,7 @@
 
 
 @media (min-width: 900px) and (min-height:900px) {
-  .profile   {
+  .profile-view .profile   {
     position: absolute;
     width: 845px;
     top: 50%;

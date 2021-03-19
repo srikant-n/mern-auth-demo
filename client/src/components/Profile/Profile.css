@@ -38,8 +38,41 @@ header .photo {
 }
 /* end header */
 
-
-/* .profile-page footer {
+/* common profile data */
+.profile {
   display: flex;
-  position: relative;
-} */
+  flex-direction: column;
+}
+
+/* Edit and Save button */
+.profile-button {
+  width: 82px;
+  height: 38px;
+  border: 1px solid var(--dull-text-color);
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.profile-button:hover {
+  cursor: pointer;
+}
+
+/* photo */
+.photo {
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+/* end photo */
+/* end profile data */
+
+@media (min-width: 900px) {
+  footer {
+    position: relative;
+    margin: -15px -60px;
+    padding: 0;
+    align-self: center;
+    width: 865px;
+  }
+}

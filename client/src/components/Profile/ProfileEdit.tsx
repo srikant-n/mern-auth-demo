@@ -4,7 +4,7 @@ import { CameraIcon } from "../../icons";
 import UserData from "../../UserData";
 import Footer from "../Footer";
 import ChangePhotoModal from "./ChangePhotoModal";
-import "./Profile.css";
+import "./ProfileEdit.css";
 
 function ProfileEdit(props: { user: UserData; onSave: (user: UserData) => void }) {
   const [userData, setUserData] = useState<UserData | undefined>(props.user);
@@ -69,9 +69,10 @@ function ProfileEdit(props: { user: UserData; onSave: (user: UserData) => void }
         </label>
         <input
           type="text"
-          className="input"
+          className="profile-value"
           id={name}
           name={name}
+          placeholder={`Enter your ${name}...`}
           value={value || ""}
           onChange={onChangeValue}
         />
@@ -80,27 +81,17 @@ function ProfileEdit(props: { user: UserData; onSave: (user: UserData) => void }
   }
 
   return (
-    <div className="profile-container">
-      <form className="profile-edit" onSubmit={onClickSubmit}>
-        <div className="profile-header">
+    <div className="profile-edit">
+      <button className="back" onClick={()=>{props.onSave(props.user)}}>{"<  Back"}</button>
+    <div className="profile">
+      <div className="profile-header">
           <div className="profile-info">
-            <h2>Profile</h2>
-            <p>Some info may be visible to other people</p>
+            <h2>Change Info</h2>
+            <p>Changes will be reflected to every services</p>
           </div>
-          <input
-            className="profile-button"
-            type="submit"
-            name="save"
-            value="Save"
-            onClick={onClickSubmit}
-          />
         </div>
-        <p className="error">{errorMessage}</p>
-        <div className="profile">
-          <div className="profile-item">
-            <label className="profile-label" htmlFor="photo">
-              Photo
-            </label>
+      <form className="profile-fields" onSubmit={onClickSubmit}>
+      <div className="profile-item">
             <div className="photo-container">
               <img id="photo" className="photo" src={userData!.photo} alt="User" />
               <CameraIcon
@@ -108,6 +99,7 @@ function ProfileEdit(props: { user: UserData; onSave: (user: UserData) => void }
                   aria-label="Change photo"
                   onClick={openPhotoModal}
                 />
+                <p>Change Photo</p>
             </div>
           </div>
           {textInput("name", userData?.name)}
@@ -116,11 +108,12 @@ function ProfileEdit(props: { user: UserData; onSave: (user: UserData) => void }
               Bio
             </label>
             <textarea
-                className="input"
+                className="profile-value"
                 id="bio"
                 name="bio"
                 rows={4}
                 value={userData?.bio}
+                placeholder="Enter your bio..."
                 onChange={onChangeValue}
               />
           </div>
@@ -132,19 +125,27 @@ function ProfileEdit(props: { user: UserData; onSave: (user: UserData) => void }
             </label>
             <input
               type="password"
-              className="input"
+              className="profile-value"
               id="password"
               name="password"
               minLength={6}
-              placeholder="******"
+              placeholder="Enter your new password..."
               value={userData?.password}
               onChange={onChangeValue}
             />
           </div>
-        </div>
+        <p className="error">{errorMessage}</p>
+        <input
+            className="profile-button"
+            type="submit"
+            name="save"
+            value="Save"
+            onClick={onClickSubmit}
+          />
         <Footer />
       </form>
-      <ChangePhotoModal
+    </div>
+    <ChangePhotoModal
         isVisible={showPhotoModal}
         id={userData!.id}
         photo={userData?.photo}

@@ -20,7 +20,7 @@ function ProfileView(props: { user: UserData; onClickEdit: () => void }) {
   }
 
   return (
-    <div  className="profile-container">
+    <div  className="profile-container profile-view">
       <div className="page-info">
         <h2>Personal info</h2>
         <p>Basic info, like your name and photo</p>
@@ -31,7 +31,7 @@ function ProfileView(props: { user: UserData; onClickEdit: () => void }) {
             <h2>Profile</h2>
             <p>Some info may be visible to other people</p>
           </div>
-          <button onClick={props.onClickEdit}>
+          <button className="profile-button" onClick={props.onClickEdit}>
             Edit
           </button>
         </div>

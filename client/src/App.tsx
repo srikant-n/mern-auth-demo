@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { getSessionId, loginWithSession } from "./api";
 import "./App.css";
-import Footer from "./components/Footer";
 import LoginOrRegister from "./components/LoginOrRegister";
 import Profile from "./components/Profile";
 import Cookie from "./cookie";
@@ -12,12 +11,12 @@ import UserData from "./UserData";
 function App() {
   const [user, setUser] = useState<UserData | undefined>(undefined);
   const history = useHistory();
-  const dummyUser = {
-    id: "0",
-    name: "Nameth",
-    photo: "https://avatars.githubusercontent.com/u/17551928?s=460&v=4",
-    email: "test@me.com",
-  };
+  // const dummyUser = {
+  //   id: "0",
+  //   name: "Nameth",
+  //   photo: "https://avatars.githubusercontent.com/u/17551928?s=460&v=4",
+  //   email: "test@me.com",
+  // };
 
   useEffect(()=>{
     loginWithSession(Cookie.getSessionCookie(), onSessionLogin);
