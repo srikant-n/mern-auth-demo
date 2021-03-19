@@ -127,19 +127,6 @@ export function loginWithGoogle(token:string, callback: (error: any, user?: User
   post("/user/google", {id:data.sub, user:userData} , callback);
 }).catch(error => console.log(error));
 }
-// export function loginWithGoogle(id: string, userData:UserData, callback: (error: any, user?: UserData) => void) {
-//   // post("/user/google", {"id":id, user:userData} , callback);
-//   post("/user/google", {"id":id, user:userData} , callback);
-// }
-
-export function logoutGoogle(callback:() => any) {
-  // sign out google
-  const  auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    console.log('User signed out.');
-    callback();
-  });
-}
 
 export function getGoogleSignIn(callback :(error: any, data?:{url:string})=>void){
   fetch("/google")

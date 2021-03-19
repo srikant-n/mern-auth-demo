@@ -19,7 +19,7 @@ function App() {
   };
 
   useEffect(()=>{
-    loginWithSession(Cookie.getSessionCookie(), onSessionLogin);
+    // loginWithSession(Cookie.getSessionCookie(), onSessionLogin);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
@@ -60,8 +60,8 @@ function App() {
           {user ? <Profile user={user} onUpdateUser={setUser} /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/">
-          <Logo className="App-logo" />
-          {/* <Profile user={dummyUser} onUpdateUser={setUser} /> */}
+          {/* <Logo className="App-logo" /> */}
+          <Profile user={dummyUser} onUpdateUser={setUser} />
         </Route>
       </Switch>
     </div>
