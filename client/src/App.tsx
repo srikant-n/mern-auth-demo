@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { getSessionId, loginWithSession } from "./api";
 import "./App.css";
+import Footer from "./components/Footer";
 import LoginOrRegister from "./components/LoginOrRegister";
 import Profile from "./components/Profile";
 import Cookie from "./cookie";
@@ -19,7 +20,7 @@ function App() {
   };
 
   useEffect(()=>{
-    // loginWithSession(Cookie.getSessionCookie(), onSessionLogin);
+    loginWithSession(Cookie.getSessionCookie(), onSessionLogin);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
@@ -60,8 +61,8 @@ function App() {
           {user ? <Profile user={user} onUpdateUser={setUser} /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/">
-          {/* <Logo className="App-logo" /> */}
-          <Profile user={dummyUser} onUpdateUser={setUser} />
+          <Logo className="App-logo" />
+          {/* <Profile user={dummyUser} onUpdateUser={setUser} /> */}
         </Route>
       </Switch>
     </div>

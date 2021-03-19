@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  position:absolute;
+  position: absolute;
   height: 40vmin;
   top: 30%;
   left: 50%;
@@ -25,3 +25,23 @@
     transform: rotate(360deg);
   }
 }
+
+footer {
+  padding: 18px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+footer a {
+  text-decoration: none;
+  color: var(--dull-text-color);
+}
+
+footer a:hover {
+  color: var(--submit-button);
+}
+/* End footer */

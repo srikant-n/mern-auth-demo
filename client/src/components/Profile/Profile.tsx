@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
-import { updateProfile } from "../../api";
 import Cookie from "../../cookie";
 import { Logo } from "../../icons";
 import UserData from "../../UserData";
@@ -13,7 +12,6 @@ import UserMenu from "./UserMenu";
 function Profile(props: { user: UserData; onUpdateUser: (user?: UserData) => any }) {
   const [userData, setUserData] = useState<UserData | undefined>(props.user);
   const [isEditable, setIsEditable] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
   const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
 
   const history = useHistory();
@@ -29,25 +27,6 @@ function Profile(props: { user: UserData; onUpdateUser: (user?: UserData) => any
         history.push("/login");
         break;
     }
-  }
-  /**
-   * Input value changed
-   * @param event
-   */
-  function onChangeValue(event: any): void {
-    setUserData((state) => {
-      return Object.assign({}, state, { [event.target.name]: event.target.value });
-    });
-  }
-
-  /**
-   * Photo changed
-   * @param url New photo url
-   */
-  function onChangePhoto(url?: string): void {
-    setUserData((state) => {
-      return Object.assign({}, state, { photo: url });
-    });
   }
 
   /**
@@ -82,7 +61,7 @@ function Profile(props: { user: UserData; onUpdateUser: (user?: UserData) => any
           {showUserMenu ? <p>&#9660;</p> : <p>&#9650;</p>}
         </div>
       </header>
-      {isEditable ? <ProfileView user={userData!} onClickEdit={onClickEdit} /> : <ProfileEdit user={userData!}  onSave={onSave} />}
+      {isEditable ? <ProfileEdit user={userData!}  onSave={onSave} /> : <ProfileView user={userData!} onClickEdit={onClickEdit} />}
       <UserMenu
         isVisible={showUserMenu}
         onClickMenuItem={onClickMenuItem}

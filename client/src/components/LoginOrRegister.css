@@ -105,12 +105,11 @@ input[type="submit"]:hover {
 /* End misc text and page toggle button */
 
 /* footer */
-footer {
+/* footer {
   position: absolute;
   margin: 0 -18px;
   padding: 18px;
   width: 100%;
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -124,11 +123,11 @@ footer a {
 
 footer a:hover {
   color: var(--submit-button);
-}
+} */
 
-@media (min-height: 580px) and (max-width: 599px) {
+@media (min-height: 580px) and (max-width: 599px) { 
   /* Set footer to bottom of page */
-  footer {
+  .container footer {
     position: fixed;
     bottom: 0;
   }
@@ -150,7 +149,7 @@ footer a:hover {
   }
 
   /* set footer after container */
-  footer {
+  .container footer {
     position: absolute;
     margin: 0 -60px;
     padding: 0;

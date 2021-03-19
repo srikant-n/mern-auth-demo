@@ -1,14 +1,14 @@
 import React from "react";
 import UserData from "../../UserData";
 import Footer from "../Footer";
-import "./Profile.css";
+import "./ProfileView.css";
 
 function ProfileView(props: { user: UserData; onClickEdit: () => void }) {
   /**
-   * Get Text input for form
-   * @param name Input name and label
-   * @param value Input field value
-   * @returns Form item component
+   * Create a profile item
+   * @param name Field name/label
+   * @param value Field text/value
+   * @returns Div containing profile item
    */
   function profileField(name: string, value?: string) {
     return (
@@ -25,21 +25,21 @@ function ProfileView(props: { user: UserData; onClickEdit: () => void }) {
         <h2>Personal info</h2>
         <p>Basic info, like your name and photo</p>
       </div>
-      <div className="profile-view">
+      <div className="profile">
         <div className="profile-header">
           <div className="profile-info">
             <h2>Profile</h2>
             <p>Some info may be visible to other people</p>
           </div>
-          <button className="edit" onClick={props.onClickEdit}>
+          <button onClick={props.onClickEdit}>
             Edit
           </button>
         </div>
-        <div className="profile">
+        <div className="profile-fields">
           <hr />
           <div className="profile-item">
             <p className="profile-label">Photo</p>
-            <div className="photo-container">
+            <div className="photo-container profile-value">
               <img
                 id="photo"
                 className="photo"
@@ -58,9 +58,9 @@ function ProfileView(props: { user: UserData; onClickEdit: () => void }) {
           {profileField("email", props.user.email)}
           <hr />
           {profileField("password", "******")}
-          <hr />
+          <hr className="display-mobile" />
+          <Footer />
         </div>
-        <Footer />
       </div>
     </div>
   );
