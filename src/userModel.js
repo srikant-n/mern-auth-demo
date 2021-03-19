@@ -36,7 +36,7 @@ const User = (module.exports = mongoose.model("user", userSchema));
  * @param {requestCallback} callback Callback for the user find
  */
 module.exports.getUserByEmail = (email, callback) => {
-  User.findOne({ email: email.toLowerCase() }, callback);
+  User.findOne({ "email": email.toLowerCase() }, callback);
 };
 
 /**

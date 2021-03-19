@@ -25,7 +25,10 @@ const userController = {
         res.statusMessage = "Email already in use";
         res.status(401).send("Email already in use");
         // res.status(401).send("Email already in use");
-      } else {
+      } else if (!user){
+        res.status(500).send("Something went wrong");
+      }
+       else {
         res.send(getSendableUserData(user));
       }
     });
@@ -39,7 +42,7 @@ const userController = {
     }
 
     model.getUserByEmail(req.body.email, async (err, user) => {
-      if (err) {
+      if (err || !user) {
         res.statusMessage = "Email is not registered";
         res.status(401).end();
       } else {
@@ -75,7 +78,7 @@ const userController = {
     }
 
     model.googleLogin(req.body.id, req.body.user, (err, user) => {
-      if (err) {
+      if (err || !user) {
         res.statusMessage = "Email is not registered";
         res.status(401).end();
       } else {
@@ -108,7 +111,7 @@ const userController = {
     }
 
     model.updateUser(id, req.body, (err, user) => {
-      if (err) {
+      if (err || !user) {
         res.statusMessage = "Email already in use";
         res.status(401).send("Email already in use");
       } else {
