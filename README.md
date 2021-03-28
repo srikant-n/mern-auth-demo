@@ -43,7 +43,7 @@ An authentication application with email/password and google sign in opttions us
 - Salted the password for security when registering with email and password.
 - Implemented Modal for changing photo
 - Implemented a dropdown menu at the top-right post login
-- Used Google OAuth sign in
+- Used Google OAuth sign in via http api
 
 [Demo Link](https://devc-my-unsplash.herokuapp.com/)
 
@@ -79,13 +79,11 @@ This application/site was created as a submission to a [DevChallenges](https://d
 
 ## How To Use
 
-<!-- Example: -->
-
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/your-user-name/your-project-name
+$ git clone https://github.com/srikant-n/mern-auth-demo.git
 
 # Install dependencies
 $ npm install
