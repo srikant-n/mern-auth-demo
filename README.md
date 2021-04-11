@@ -88,6 +88,11 @@ $ git clone https://github.com/srikant-n/mern-auth-demo.git
 # Install dependencies
 $ npm install
 
+# Create a .env file and set appropriate values for the following
+DB_PATH_DEV
+GOOGLE_CLIENT_ID
+GOOGLE_REDIRECT_DEV
+
 # Run the app
 $ npm start
 
